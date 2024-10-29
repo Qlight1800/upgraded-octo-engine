@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Check if a filename is provided
+if [ $# -eq 0 ]; then
+    echo "Usage: ./run <source_file.cpp>"
+    exit 1
+fi
+
+# Compile the provided C++ file
+g++ "$1" -o "${1%.cpp}"
+
+# Check if the compilation was successful
+if [ $? -eq 0 ]; then
+    # Run the compiled program with any additional arguments
+    ./"${1%.cpp}" "${@:2}"
+else
+    echo "Compilation failed."
+fi
